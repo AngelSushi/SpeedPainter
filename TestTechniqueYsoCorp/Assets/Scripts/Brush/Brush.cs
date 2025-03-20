@@ -3,6 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Brush : MonoBehaviour {
+
+    private Spray _spray;
+    private Pencil _pencil;
+    
+    void Start() {
+        _spray = new Spray(200);
+        _pencil = new Pencil(10);
+    }
+    
     
     void Update() {
         if (Input.touches.Length > 0) {
@@ -13,7 +22,12 @@ public class Brush : MonoBehaviour {
 
             Debug.Log("position :" + position);
             */
-            BrushEventsDispatcher.OnBrushMoveEvent?.Invoke(position);
+            BrushEventsDispatcher.OnBrushMoveEvent?.Invoke(_spray,position);
+            
+          /*  _spray.ComputePixels();
+            _spray.MixColors();
+            _spray.CanMixColors();
+            */
         }
     }
 }
