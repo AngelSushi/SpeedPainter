@@ -6,6 +6,7 @@ using UnityEngine;
 public class BrushEventsDispatcher : MonoBehaviour {
     public static Action<BrushBase,Vector3> OnBrushMoveEvent;
     public static Action<int> OnBrushChangeEvent;
+    public static Action<Color> OnBrushColorChangeEvent;
 
 
 }

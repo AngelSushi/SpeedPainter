@@ -24,6 +24,8 @@ public class Painting : MonoBehaviour {
     private int _brushSize = 200;
 
     private Color[] _brushPixels;
+
+    private Color _brushColor;
     
     
     void Start() {
@@ -67,7 +69,10 @@ public class Painting : MonoBehaviour {
             }
         }
 
+        _brushColor = Color.red;
+
         BrushEventsDispatcher.OnBrushMoveEvent += OnBrushMove;
+        BrushEventsDispatcher.OnBrushColorChangeEvent += OnBrushChangeColor;
     }
 
     private void OnBrushMove(BrushBase currentBrush, Vector3 position) {
@@ -81,12 +86,16 @@ public class Painting : MonoBehaviour {
         // Get If the current pixel is not transparent, we take the color from the spray
         for (int i = 0; i < currentBrush.BrushSize * currentBrush.BrushSize; i++) {
             if (currentBrush.Pixels[i] != Color.clear) { 
-                texturePixels[i] = currentBrush.Pixels[i];
+                texturePixels[i] = _brushColor;
             }
         }
         
         _paintingTexture.SetPixels(centerX, centerY, currentBrush.BrushSize, currentBrush.BrushSize, texturePixels);
         _paintingTexture.Apply(false);
+    }
+
+    private void OnBrushChangeColor(Color color) {
+        _brushColor = color;
     }
 
 }

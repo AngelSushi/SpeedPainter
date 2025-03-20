@@ -26,7 +26,6 @@ public class Brush : MonoBehaviour {
             BrushEventsDispatcher.OnBrushMoveEvent?.Invoke(_currentBrush,position);
         }
     }
-
     private void OnBrushChange(int brushIndex) {
         switch (brushIndex) {
             default:
