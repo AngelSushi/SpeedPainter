@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class Brush : MonoBehaviour {
 
@@ -17,13 +19,21 @@ public class Brush : MonoBehaviour {
 
         _currentBrush = _pencil;
         BrushEventsDispatcher.OnBrushChangeEvent += OnBrushChange;
+        
     }
     
     
     void Update() {
         if (Input.touches.Length > 0) {
-            Vector3 position = Input.touches[0].position;
-            BrushEventsDispatcher.OnBrushMoveEvent?.Invoke(_currentBrush,position);
+            Touch touch = Input.touches[0];
+            
+            // Check if the user is interacting with a button
+            if(EventSystem.current.currentSelectedGameObject != null && EventSystem.current.currentSelectedGameObject.GetComponent<Button>() != null) {
+                return;
+            }
+
+            Vector3 position = touch.position;
+            BrushEventsDispatcher.InvokeEvent(BrushEventsDispatcher.OnBrushMoveEvent,EventPriority.LOW,_currentBrush,position);
         }
     }
     private void OnBrushChange(int brushIndex) {
