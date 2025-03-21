@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ButtonEventsDispatcher : MonoBehaviour {
 
-    private Color[] _availableColors = {Color.red, Color.green, Color.blue, Color.yellow, Color.black, Color.white};
+    private Color[] _availableColors = {Color.red, Color.black, Color.blue, Color.yellow, Color.black, Color.white};
     
     public void OnChoosePencilBrush() {
         BrushEventsDispatcher.InvokeEvent(BrushEventsDispatcher.OnBrushChangeEvent,EventPriority.HIGH,0);
