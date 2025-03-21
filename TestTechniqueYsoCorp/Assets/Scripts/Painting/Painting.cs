@@ -25,13 +25,19 @@ public class Painting : MonoBehaviour {
     [SerializeField] private int _tolerance;
 
     private List<Vector2> _pixelDrawPosition = new List<Vector2>();
+
+    void Awake() {
+        _texWidth = Screen.width;
+        _texHeight = Screen.height;
+        
+        GameEventsDispatcher.OnLevelStartEvent += OnLevelStart;
+    }
     
     void Start() {
         Image image = GetComponent<Image>();
         Sprite imageSprite = image.sprite;
 
-        _texWidth = Screen.width;
-        _texHeight = Screen.height;
+        
         
         Debug.Log("width: " + _texWidth + " height: " + _texHeight);
 
@@ -49,13 +55,17 @@ public class Painting : MonoBehaviour {
         image.sprite = imageSprite;
         
         _brushColor = Color.black;
-        
-        GenerateModelTexture(_sourceTexture);
 
         BrushEventsDispatcher.OnBrushMoveEvent += OnBrushMove;
         BrushEventsDispatcher.OnBrushColorChangeEvent += OnBrushChangeColor;
+        
     }
-    
+
+    private void OnLevelStart(int levelIndex, Level level) {
+        Debug.Log("log level start " + level._paintings[0].name);
+        GenerateModelTexture(level._paintings[0]);
+    }
+
     private void OnBrushMove(BrushBase currentBrush, Vector3 position) {
         int centerX = Mathf.Clamp((int)position.x - currentBrush.BrushSize / 2, 0, _paintingTexture.width);
         int centerY = Mathf.Clamp((int)position.y - currentBrush.BrushSize / 2, 0, _paintingTexture.height);

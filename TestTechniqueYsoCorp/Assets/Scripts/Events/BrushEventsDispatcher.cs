@@ -23,6 +23,7 @@ public class BrushEventsDispatcher : MonoBehaviour {
     public static Action OnScaleUpBrushEvent;
     public static Action OnScaleDownBrushEvent;
 
+    // Queue is old system and have no value right but no time to change it
     private static Queue<EventAction> _eventQueue = new Queue<EventAction>();
     
     public static void InvokeEvent(Delegate eventAction,EventPriority priority,params object[] args) {
