@@ -3,8 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Circle : BrushBase {
-    public Circle(int brushSize) : base(brushSize) { }
-   
+    public Circle(int brushSize) : base(brushSize) {
+        
+        BrushEventsDispatcher.OnScaleUpBrushEvent += OnScaleUpBrush;
+        BrushEventsDispatcher.OnScaleDownBrushEvent += OnScaleDownBrush;
+    }
+
     public override void ComputePixels() {
         int radius = BrushSize / 2;
         
@@ -27,5 +31,15 @@ public class Circle : BrushBase {
     }
 
     public override void MixColors() {
+    }
+    
+    private void OnScaleUpBrush() {
+        BrushSize += 10;
+        BrushSize = Mathf.Clamp(BrushSize,0,200);
+    }
+    
+    private void OnScaleDownBrush() {
+        BrushSize -= 10;
+        BrushSize = Mathf.Clamp(BrushSize, 0, 200);
     }
 }

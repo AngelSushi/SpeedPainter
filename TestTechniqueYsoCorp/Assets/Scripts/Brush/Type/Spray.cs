@@ -11,6 +11,25 @@ public class Spray : BrushBase {
     public Spray(int brushSize) : base(brushSize) {
         _sprayRadius = brushSize / 2;
         _sprayDensity = 10000;
+        
+        BrushEventsDispatcher.OnScaleUpBrushEvent += OnScaleUpBrush;
+        BrushEventsDispatcher.OnScaleDownBrushEvent += OnScaleDownBrush;
+    }
+
+    private void OnScaleDownBrush() {
+        _sprayRadius -= 30;
+        BrushSize -= 30;
+
+        BrushSize = Mathf.Clamp(BrushSize, 0, 200);
+        _sprayRadius = Mathf.Clamp(_sprayRadius,0,200);
+    }
+
+    private void OnScaleUpBrush() {
+        _sprayRadius += 30;
+        BrushSize += 30;
+
+        BrushSize = Mathf.Clamp(BrushSize, 0, 200);
+        _sprayRadius = Mathf.Clamp(_sprayRadius,0,200);
     }
 
     public override void ComputePixels() {

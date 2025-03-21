@@ -20,4 +20,12 @@ public class ButtonEventsDispatcher : MonoBehaviour {
     public void OnChooseBrushColor(int colorIndex) {
         BrushEventsDispatcher.OnBrushColorChangeEvent?.Invoke(_availableColors[colorIndex]);
     }
+
+    public void OnScaleUpBrush() {
+        BrushEventsDispatcher.OnScaleUpBrushEvent?.Invoke();
+    }
+
+    public void OnScaleDownBrush() {
+        BrushEventsDispatcher.OnScaleDownBrushEvent?.Invoke();
+    }
 }
