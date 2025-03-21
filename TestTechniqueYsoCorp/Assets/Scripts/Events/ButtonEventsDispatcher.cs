@@ -4,28 +4,33 @@ using UnityEngine;
 
 public class ButtonEventsDispatcher : MonoBehaviour {
 
-    private Color[] _availableColors = {Color.red, Color.green, Color.blue, Color.yellow, Color.black, Color.white};
+    private Color[] _availableColors = {Color.red, Color.black, Color.blue, Color.yellow, Color.black, Color.white};
     
     public void OnChoosePencilBrush() {
-        BrushEventsDispatcher.OnBrushChangeEvent?.Invoke(0);
+        BrushEventsDispatcher.InvokeEvent(BrushEventsDispatcher.OnBrushChangeEvent,EventPriority.HIGH,0);
     }
     public void OnChooseCircleBrush() {
-        BrushEventsDispatcher.OnBrushChangeEvent?.Invoke(1);
+        BrushEventsDispatcher.InvokeEvent(BrushEventsDispatcher.OnBrushChangeEvent,EventPriority.HIGH,1);
     }
     
     public void OnChooseSprayBrush() {
-        BrushEventsDispatcher.OnBrushChangeEvent?.Invoke(2);
+        BrushEventsDispatcher.InvokeEvent(BrushEventsDispatcher.OnBrushChangeEvent,EventPriority.HIGH,2);
     }
 
     public void OnChooseBrushColor(int colorIndex) {
-        BrushEventsDispatcher.OnBrushColorChangeEvent?.Invoke(_availableColors[colorIndex]);
+        BrushEventsDispatcher.InvokeEvent(BrushEventsDispatcher.OnBrushColorChangeEvent,EventPriority.HIGH,_availableColors[colorIndex]);
     }
 
     public void OnScaleUpBrush() {
-        BrushEventsDispatcher.OnScaleUpBrushEvent?.Invoke();
+        BrushEventsDispatcher.InvokeEvent(BrushEventsDispatcher.OnScaleUpBrushEvent,EventPriority.HIGH);
     }
 
     public void OnScaleDownBrush() {
-        BrushEventsDispatcher.OnScaleDownBrushEvent?.Invoke();
+        BrushEventsDispatcher.InvokeEvent(BrushEventsDispatcher.OnScaleDownBrushEvent,EventPriority.HIGH);
+    }
+
+    public void PendingEraseButton() {
+        Debug.Log("test1");
+        FindObjectOfType<Painting>().CompareTexture();
     }
 }
